@@ -274,6 +274,11 @@ const Calendar = (props: CalendarProps & ContextProp) => {
     );
   };
 
+   const config =!enableSwipeMonths ?  {
+        velocityThreshold: 100000,
+        directionalOffsetThreshold: 0
+    } : {}
+
   const GestureComponent = enableSwipeMonths ? GestureRecognizer : View;
   const swipeProps = {
     onSwipe: (direction: string) => onSwipe(direction)
@@ -281,7 +286,7 @@ const Calendar = (props: CalendarProps & ContextProp) => {
   const gestureProps = enableSwipeMonths ? swipeProps : undefined;
 
   return (
-    <GestureComponent {...gestureProps}>
+    <GestureComponent {...gestureProps} config={config}>
       <View
         style={[style.current.container, propsStyle]}
         testID={testID}
